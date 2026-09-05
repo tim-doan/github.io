@@ -1,6 +1,217 @@
+/* ---------------------------------------------------------------
+   Tim Doan — portfolio
+   Editorial / manuscript styling. Strictly black and white.
+   --------------------------------------------------------------- */
+
+:root {
+  --paper: #ffffff;
+  --ink: #000000;
+  --ink-soft: #4a4a4a;
+  --rule: #000000;
+  --gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #000000;
+    --ink: #ffffff;
+    --ink-soft: #b4b4b4;
+    --rule: #ffffff;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  max-width: 700px;
-  margin: 3rem auto;
-  padding: 0 1rem;
-  font: 16px/1.6 system-ui, sans-serif;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Times New Roman", Times, serif;
+  font-size: clamp(17px, 0.3vw + 16px, 19px);
+  line-height: 1.6;
+}
+
+/* ---------- Layout ---------- */
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--gap);
+  display: grid;
+  gap: var(--gap);
+}
+
+@media (min-width: 900px) {
+  .page {
+    grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(2.5rem, 6vw, 6rem);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: var(--gap);
+  }
+}
+
+/* ---------- Sidebar ---------- */
+
+.portrait {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.05);
+  border: 1px solid var(--rule);
+}
+
+/* Keep the portrait from swallowing the first screen on phones. */
+@media (max-width: 600px) {
+  .portrait {
+    max-width: 190px;
+  }
+}
+
+.name {
+  margin: 1.5rem 0 0;
+  font-size: clamp(2.75rem, 7vw, 3.5rem);
+  line-height: 0.95;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.role {
+  margin: 1rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.6;
+}
+
+.tagline {
+  margin: 1rem 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- Sections ---------- */
+
+.content {
+  counter-reset: section;
+}
+
+section + section {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  margin: 0 0 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--rule);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+h2::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero) " / ";
+}
+
+p {
+  margin: 0 0 1.15em;
+  max-width: 62ch;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Lists ---------- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed var(--rule);
+}
+
+.list li:first-child {
+  padding-top: 0;
+}
+
+.list--projects li {
+  padding: 1.25rem 0;
+}
+
+.list--projects h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ---------- Links ---------- */
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+a:hover,
+a:focus-visible {
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration-color: transparent;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.list--projects h3 a::after {
+  content: " →";
+}
+
+/* ---------- Motion / print ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  :root {
+    --paper: #fff;
+    --ink: #000;
+    --rule: #000;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  a {
+    text-decoration: none;
+  }
 }
