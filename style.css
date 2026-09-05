@@ -80,11 +80,12 @@ body {
 .name {
   margin: 1.5rem 0 0;
   font-family: var(--sans);
-  font-size: clamp(2.5rem, 6.5vw, 3.25rem);
-  line-height: 0.95;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.03em;
+  white-space: nowrap;
 }
 
 .role {
